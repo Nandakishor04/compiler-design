@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char op, arg1, arg2, result;
+
+    printf("Enter expression (Example: a=b+c): ");
+    scanf("%c=%c%c%c", &result, &arg1, &op, &arg2);
+
+    printf("\nGenerated Three Address Code:\n");
+
+    switch(op) {
+        case '+':
+            printf("MOV R0, %c\n", arg1);
+            printf("ADD R0, %c\n", arg2);
+            printf("MOV %c, R0\n", result);
+            break;
+
+        case '-':
+            printf("MOV R0, %c\n", arg1);
+            printf("SUB R0, %c\n", arg2);
+            printf("MOV %c, R0\n", result);
+            break;
+
+        case '*':
+            printf("MOV R0, %c\n", arg1);
+            printf("MUL R0, %c\n", arg2);
+            printf("MOV %c, R0\n", result);
+            break;
+
+        case '/':
+            printf("MOV R0, %c\n", arg1);
+            printf("DIV R0, %c\n", arg2);
+            printf("MOV %c, R0\n", result);
+            break;
+
+        default:
+            printf("Invalid operator\n");
+    }
+
+    return 0;
+}
