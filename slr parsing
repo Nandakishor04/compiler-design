@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <string.h>
+
+char stack[20];
+int top = -1;
+char input[20];
+int i = 0;
+
+void push(char c) {
+    stack[++top] = c;
+}
+
+void pop(int n) {
+    top -= n;
+}
+
+void check() {
+    // Reduce E → i
+    if (stack[top] == 'i') {
+        stack[top] = 'E';
+        printf("Reduce: E->i\n");
+    }
+
+    // Reduce E → E+E
+    if (top >= 2 && stack[top] == 'E' &&
+        stack[top-1] == '+' && stack[top-2] == 'E') {
+        pop(2);
+        stack[top] = 'E';
+        printf("Reduce: E->E+E\n");
+    }
+}
+
+int main() {
+    printf("Enter input string: ");
+    scanf("%s", input);
+
+    printf("\nParsing Steps:\n");
+
+    while (input[i] != '\0') {
+        push(input[i]);
+        printf("Shift: %c\n", input[i]);
+        check();
+        i++;
+    }
+
+    check();
+
+    if (stack[top] == 'E' && top == 0)
+        printf("\nString Accepted\n");
+    else
+        printf("\nString Rejected\n");
+
+    return 0;
+}
