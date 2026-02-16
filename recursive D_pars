@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <string.h>
+
+char input[20];
+int i = 0;
+
+void E();
+void E_dash();
+void T();
+
+void match(char c) {
+    if (input[i] == c)
+        i++;
+    else {
+        printf("Error\n");
+    }
+}
+
+void E() {
+    T();
+    E_dash();
+}
+
+void E_dash() {
+    if (input[i] == '+') {
+        match('+');
+        T();
+        E_dash();
+    }
+    // else epsilon
+}
+
+void T() {
+    if (input[i] == 'i')
+        match('i');
+    else
+        printf("Error\n");
+}
+
+int main() {
+    printf("Enter string: ");
+    scanf("%s", input);
+
+    E();
+
+    if (input[i] == '\0')
+        printf("String Accepted\n");
+    else
+        printf("String Rejected\n");
+
+    return 0;
+}
